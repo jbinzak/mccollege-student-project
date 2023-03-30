@@ -63,19 +63,6 @@ public class HomePageElementsExistSafariTest {
 
     @Test
     public void safari_amazon_homepage_main_navbar_elements_exists() throws Exception{
-
-
-        // build list of element queries
-        final List<By> myElementSearchBys = new ArrayList<By>();
-        myElementSearchBys.add(By.id("navbar"));
-        myElementSearchBys.add(By.id("twotabsearchtextbox"));
-        myElementSearchBys.add(By.id("icp-nav-flyout"));
-        myElementSearchBys.add(By.id("nav-link-accountList"));
-        myElementSearchBys.add(By.id("nav-orders"));
-        myElementSearchBys.add(By.id("nav-cart"));
-
-        // verify elements exists
-        SeleniumTestHelper.webdriver_element_exists(this.myWebDriver, AmazonHelper.PAGE_URL_HOME, myElementSearchBys);
-
+        AmazonHelper.amazon_homepage_main_navbar_elements_exists(this.myWebDriver);
     }
 }
