@@ -10,3 +10,7 @@ This is a maven project and we include external 3rd prty libraries in our pom.xm
 - JUnit (unit testing)
 - Swagger (documentation)
 - A few Spring boot dependencies
+
+
+## Drivers
+This project has drivers for Safari (assumes you are on a Mac), Chrome, and Edge. How to install drivers here: https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/
