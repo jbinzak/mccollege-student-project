@@ -2,17 +2,19 @@ package com.mccollege.student.amazon.homepage.safari;
 
 import org.junit.jupiter.api.AfterEach;
 
-import java.util.List;
+import java.time.Duration;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.junit.Assert;
 
 import com.mccollege.student.amazon.AmazonHelper;
 
@@ -46,7 +48,7 @@ public class HomePageSearchSubmissionSafariTest {
         By myTextInputSearchBy = By.id("twotabsearchtextbox");
 
         // get element
-        WebElement myTextInputElement = myWebDriver.findElement(myTextInputSearchBy);
+        WebElement myTextInputElement = this.myWebDriver.findElement(myTextInputSearchBy);
 
         // set value
         myTextInputElement.sendKeys("java textbook");
@@ -55,20 +57,28 @@ public class HomePageSearchSubmissionSafariTest {
         By mySearchSubmitButtonBy = By.id("nav-search-submit-button");
 
         // get element
-        WebElement mySearchSubmitElement = myWebDriver.findElement(mySearchSubmitButtonBy);
+        WebElement mySearchSubmitElement = this.myWebDriver.findElement(mySearchSubmitButtonBy);
 
         // click button
         mySearchSubmitElement.click();
 
         // query object
-        By mySearchResultWidgetBy = By.className("template=SEARCH_RESULTS");
+        By mySearchResultWidgetBy = By.className("s-result-list");
+       
+        // Waiting 30 seconds for an element to be present on the page, checking for its presence once every 5 seconds.
+        // https://www.selenium.dev/documentation/webdriver/waits/
+        Wait<WebDriver> myWait = new FluentWait<WebDriver>(this.myWebDriver)
+        .withTimeout(Duration.ofSeconds(30))
+        .pollingEvery(Duration.ofSeconds(5))
+        .ignoring(NoSuchElementException.class);
 
-        // get element
-        List<WebElement> mySearchResultWidgetElements = myWebDriver.findElements(mySearchResultWidgetBy);
+        // get object via wait
+        WebElement mySearchResultElement = myWait.until(driver -> {
+            return driver.findElement(mySearchResultWidgetBy);
+        });
 
-         // verify results
-         Assert.assertEquals(true, mySearchResultWidgetElements !=  null && mySearchResultWidgetElements.size() > 0);
-
+        // verify element exists
+        Assertions.assertThat(mySearchResultElement).isNotNull();
     }
 
 }
