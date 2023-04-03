@@ -11,6 +11,8 @@ This is a maven project and we include external 3rd prty libraries in our pom.xm
 - Swagger (documentation)
 - A few Spring boot dependencies
 
-
 ## Drivers
 This project has drivers for Safari (assumes you are on a Mac), Chrome, and Edge. How to install drivers here: https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/
+
+## Database Seeding
+SQL files are found in `src/test/java/com/mccollege/student/amazon/sql`. Used the mockaroo tool to help generate some test data. Tool is here: https://www.mockaroo.com/
